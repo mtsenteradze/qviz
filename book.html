@@ -2,8 +2,7 @@
 <body>
 
 
-<form id="book-form" method="post" action="/book-
-registration.php">
+<form id="book-form" method="post" action="http://localhost/qviz/book-registration.php" onsubmit="myfunc()">
 <fieldset>
 <legen>Register Book</legend>
 <div>
@@ -23,6 +22,42 @@ Book author:
 </div>
 </fieldset>
 </form>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script> 
+function myfunc(){
+if (window.XMLHttpRequest) {
+
+ xmlhttp=new XMLHttpRequest(); 
+} 
+ else { 
+  xmlhttp=new ActiveXObject(); 
+} 
+xmlhttp.onreadystatechange=function() { 
+  if (xmlhttp.readyState==4 && xmlhttp.status==201){ 
+    
+    response = xmlhttp.responseText;
+    response = JSON.parse(response); 
+
+}}
+     else if (xmlhttp.readyState==4 && xmlhttp.status==400){ 
+      
+      response = xmlhttp.responseText; 
+      response = JSON.parse(response);
+      response = response.error.message;
+   } 
+      
+      document.getElementById("book-form").innerHTML = response; 
+  } 
+      
+      xmlhttp.open(method, server,true); 
+      xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+      xmlhttp.send(sendString); return false;
+
+
+};
+</script>
+
+
 
 </body>
 </html>
